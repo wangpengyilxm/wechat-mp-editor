@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">公众号智能助手</string>
+    <string name="title_activity_main">公众号智能助手</string>
+    <string name="package_name">com.wangge.mpeditor</string>
+    <string name="custom_url_scheme">com.wangge.mpeditor</string>
+</resources>

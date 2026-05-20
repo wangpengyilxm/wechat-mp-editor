@@ -1,0 +1,158 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'PingFang SC', 'Microsoft YaHei', 'Noto Sans SC', system-ui, sans-serif;
+  --color-wechat: #6366f1;
+  --color-wechat-dark: #4338ca;
+  --color-accent: #6366f1;
+  --color-accent-dark: #4338ca;
+  --color-accent-soft: #a5b4fc;
+  --color-surface: #e4e8f5;
+  --color-panel: #f0f2fa;
+  --color-border: rgba(129, 140, 248, 0.35);
+  --color-muted: #7b83a8;
+  --color-ink: #2c2f4a;
+  --color-ink-secondary: #525a7a;
+  --neo-shadow-dark: rgba(120, 130, 190, 0.38);
+  --neo-shadow-light: rgba(255, 255, 255, 0.95);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background: linear-gradient(145deg, #eef2ff 0%, #e0e7ff 40%, #ede9fe 100%);
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #a5b4fc;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #818cf8;
+}
+
+@utility neo-card {
+  background: var(--color-panel);
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow:
+    6px 6px 16px var(--neo-shadow-dark),
+    -5px -5px 14px var(--neo-shadow-light);
+}
+
+@utility neo-inset {
+  background: var(--color-surface);
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow:
+    inset 3px 3px 8px var(--neo-shadow-dark),
+    inset -3px -3px 8px var(--neo-shadow-light);
+}
+
+@utility neo-flat {
+  background: var(--color-surface);
+  border-radius: 0.75rem;
+  border: 1px solid var(--color-border);
+}
+
+@utility input-base {
+  @apply w-full rounded-xl px-3 py-2.5 text-sm text-ink outline-none transition-all placeholder:text-muted/70 neo-inset focus:ring-2 focus:ring-accent/35;
+}
+
+@utility btn-primary {
+  @apply inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-semibold text-white transition-all hover:brightness-110 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-45 disabled:active:scale-100;
+  background: linear-gradient(135deg, #4338ca 0%, #6366f1 45%, #818cf8 100%);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow:
+    0 4px 14px rgba(67, 56, 202, 0.45),
+    0 2px 4px rgba(99, 102, 241, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+}
+
+@utility btn-secondary {
+  @apply inline-flex items-center justify-center rounded-xl border-2 border-accent/40 bg-white/60 px-5 py-2.5 text-sm font-semibold text-accent-dark transition-all hover:border-accent hover:bg-accent/10 active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-45;
+  box-shadow:
+    0 3px 10px rgba(99, 102, 241, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+@utility text-gradient {
+  background: linear-gradient(135deg, #4338ca, #6366f1, #818cf8);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@keyframes workflow-flash-yellow {
+  0%,
+  100% {
+    background-color: #fef9c3;
+  }
+  50% {
+    background-color: #fde047;
+  }
+}
+
+@keyframes workflow-flash-red {
+  0%,
+  100% {
+    background-color: #fee2e2;
+  }
+  50% {
+    background-color: #f87171;
+  }
+}
+
+.workflow-step-running {
+  animation: workflow-flash-yellow 0.9s ease-in-out infinite;
+  border-color: #ca8a04 !important;
+  box-shadow: inset 0 0 0 1px rgba(202, 138, 4, 0.25);
+}
+
+.workflow-step-completed {
+  background-color: #86efac !important;
+  border-color: #16a34a !important;
+  box-shadow: inset 0 0 0 1px rgba(22, 163, 74, 0.2);
+}
+
+.workflow-step-error {
+  animation: workflow-flash-red 0.9s ease-in-out infinite;
+  border-color: #dc2626 !important;
+  box-shadow: inset 0 0 0 1px rgba(220, 38, 38, 0.25);
+}
+
+.formatted-article figure {
+  margin: 16px 0;
+}
+
+.formatted-article figure img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  min-height: 120px;
+  object-fit: cover;
+  background: #f3f4f6;
+}
+
+.formatted-article figcaption {
+  user-select: text;
+}

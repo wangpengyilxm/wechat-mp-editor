@@ -1,0 +1,79 @@
+{
+  "name": "wechat-mp-editor",
+  "productName": "公众号智能助手",
+  "private": true,
+  "version": "1.0.0",
+  "description": "微信公众号智能排版与草稿同步工具",
+  "author": "王哥",
+  "type": "module",
+  "main": "electron-dist/main.mjs",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "build:electron": "node scripts/build-electron.mjs",
+    "electron:dev": "npm run build && npm run build:electron && electron .",
+    "pack": "npm run build && npm run build:electron && electron-builder --win",
+    "pack:dir": "npm run build && npm run build:electron && electron-builder --win --dir",
+    "cap:sync": "npm run build && npx cap sync android",
+    "pack:android": "powershell -ExecutionPolicy Bypass -File scripts/build-android.ps1",
+    "pack:android:release": "npm run build && npx cap sync android && cd android && gradlew.bat assembleRelease"
+  },
+  "build": {
+    "appId": "com.wangge.mp-editor",
+    "productName": "公众号智能助手",
+    "icon": "build/icon.png",
+    "copyright": "Copyright © 2026",
+    "directories": {
+      "output": "release"
+    },
+    "files": [
+      "electron-dist/main.mjs",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "dist",
+        "to": "app/dist",
+        "filter": ["**/*"]
+      }
+    ],
+    "win": {
+      "signAndEditExecutable": false,
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "perMachine": false,
+      "installerLanguages": ["zh_CN"],
+      "shortcutName": "公众号智能助手",
+      "artifactName": "${productName}-Setup-${version}.${ext}"
+    }
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^7.2.0",
+    "@tailwindcss/vite": "^4.3.0",
+    "@types/node": "^22.15.21",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.2",
+    "electron": "^35.2.1",
+    "electron-builder": "^26.0.12",
+    "esbuild": "^0.28.0",
+    "tailwindcss": "^4.3.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.0.12"
+  },
+  "dependencies": {
+    "@capacitor/android": "^7.2.0",
+    "@capacitor/core": "^7.2.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
+  }
+}
