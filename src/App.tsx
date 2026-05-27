@@ -25,7 +25,6 @@ import type {
 } from "./types";
 
 import {
-  clearAllAppStorage,
   loadStoredConfig,
   loadPreferences,
   normalizeGenConfig,
@@ -64,21 +63,6 @@ const DEFAULT_CONFIG: GenConfig = {
   prompts: DEFAULT_PROMPTS,
 };
 
-const STORAGE_RESET_FLAG = "wechat-mp-editor:storage-reset-v1";
-
-function createInitialConfig(): GenConfig {
-  try {
-    if (!sessionStorage.getItem(STORAGE_RESET_FLAG)) {
-      clearAllAppStorage();
-      sessionStorage.setItem(STORAGE_RESET_FLAG, "1");
-      return normalizeGenConfig(DEFAULT_CONFIG);
-    }
-  } catch {
-    clearAllAppStorage();
-  }
-  return loadStoredConfig(DEFAULT_CONFIG);
-}
-
 export default function App() {
   const [mode, setMode] = useState<WorkMode>("theme");
 
@@ -94,7 +78,9 @@ export default function App() {
 
   const [finalHtml, setFinalHtml] = useState("");
 
-  const [config, setConfig] = useState<GenConfig>(createInitialConfig);
+  const [config, setConfig] = useState<GenConfig>(() =>
+    normalizeGenConfig(loadStoredConfig(DEFAULT_CONFIG)),
+  );
 
   const handleConfigChange = useCallback((next: GenConfig) => {
     const normalized = normalizeGenConfig(next);
